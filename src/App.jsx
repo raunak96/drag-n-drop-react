@@ -1,7 +1,14 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
-import DraggableItem from "./components/DraggableItem";
+import { useState } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import DraggableItem from "@/components/DraggableItem";
+import { initialData, tasksMap } from "@/utils/data";
 
 const App = () => {
+	const [columns, setColumns] = useState(initialData);
+	const onDragEnd = result => {
+		console.log(result);
+	};
 	return (
 		<Flex
 			flexDir="column"
@@ -18,11 +25,22 @@ const App = () => {
 					react-beautiful-dnd
 				</Text>
 			</Flex>
-			<Flex justify="space-between" columnGap="2rem" px="4rem">
-				<DraggableItem />
-				<DraggableItem />
-				<DraggableItem />
-			</Flex>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Flex justify="space-between" columnGap="1rem" px="4rem">
+					{columns.map(column => {
+						const tasks = column.taskIds.map(taskId =>
+							tasksMap.get(taskId)
+						);
+						return (
+							<DraggableItem
+								key={column.id}
+								column={column}
+								tasks={tasks}
+							/>
+						);
+					})}
+				</Flex>
+			</DragDropContext>
 		</Flex>
 	);
 };
