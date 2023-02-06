@@ -19,7 +19,22 @@ const DraggableItem = ({ column, tasks }) => {
 					{column.title}
 				</Text>
 			</Flex>
-			<Flex px="1.5rem" flexDir="column" flex={1} overflowY="auto">
+			<Flex
+				px="1.5rem"
+				flexDir="column"
+				flex={1}
+				overflowY="auto"
+				sx={{
+					"&::-webkit-scrollbar": {
+						width: "8px",
+						borderRadius: "8px",
+						backgroundColor: `rgba(0, 0, 0, 0.05)`,
+					},
+					"&::-webkit-scrollbar-thumb": {
+						backgroundColor: `#9B9B9B`,
+						borderRadius: "8px",
+					},
+				}}>
 				{tasks.map(task => (
 					<Flex
 						key={task.id}
