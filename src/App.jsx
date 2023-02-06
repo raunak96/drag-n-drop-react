@@ -1,9 +1,12 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import DraggableItem from "@/components/DraggableItem";
 import { initialData, tasksMap } from "@/utils/data";
 
+/* Lazy loaded due to some bug with react-beautiful-dnd package  */
+const DroppableContainer = lazy(() =>
+	import("@/components/DroppableContainer")
+);
 const App = () => {
 	const [columns, setColumns] = useState(initialData);
 	const onDragEnd = result => {
@@ -32,11 +35,14 @@ const App = () => {
 							tasksMap.get(taskId)
 						);
 						return (
-							<DraggableItem
+							<Suspense
 								key={column.id}
-								column={column}
-								tasks={tasks}
-							/>
+								fallback={<div>Loading...</div>}>
+								<DroppableContainer
+									column={column}
+									tasks={tasks}
+								/>
+							</Suspense>
 						);
 					})}
 				</Flex>
