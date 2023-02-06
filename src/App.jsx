@@ -1,4 +1,5 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
+import DraggableItem from "./components/DraggableItem";
 
 const App = () => {
 	return (
@@ -16,6 +17,11 @@ const App = () => {
 				<Text fontSize="20px" fontWeight={600} color="subtle-text">
 					react-beautiful-dnd
 				</Text>
+			</Flex>
+			<Flex justify="space-between" columnGap="2rem" px="4rem">
+				<DraggableItem />
+				<DraggableItem />
+				<DraggableItem />
 			</Flex>
 		</Flex>
 	);
