@@ -4,13 +4,7 @@ import DraggableItem from "./DraggableItem";
 
 const DroppableContainer = ({ column, tasks }) => {
 	return (
-		<Flex
-			rounded="3px"
-			bg="column-bg"
-			w="400px"
-			minH="500px"
-			maxH="600px"
-			flexDir="column">
+		<Flex rounded="3px" bg="column-bg" w="400px" h="550px" flexDir="column">
 			<Flex
 				align="center"
 				h="60px"
@@ -23,9 +17,9 @@ const DroppableContainer = ({ column, tasks }) => {
 				</Text>
 			</Flex>
 			<Droppable droppableId={column.id}>
-				{(droppableProvided, droppableSnapshot) => (
+				{provided => (
 					<Flex
-						ref={droppableProvided.innerRef}
+						ref={provided.innerRef}
 						px="1.5rem"
 						flexDir="column"
 						flex={1}
@@ -41,7 +35,7 @@ const DroppableContainer = ({ column, tasks }) => {
 								borderRadius: "8px",
 							},
 						}}
-						{...droppableProvided.droppableProps}>
+						{...provided.droppableProps}>
 						{tasks.map((task, index) => (
 							<DraggableItem
 								key={task.id}
@@ -49,7 +43,7 @@ const DroppableContainer = ({ column, tasks }) => {
 								task={task}
 							/>
 						))}
-						{droppableProvided.placeholder}
+						{provided.placeholder}
 					</Flex>
 				)}
 			</Droppable>
