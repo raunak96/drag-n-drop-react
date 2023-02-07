@@ -11,6 +11,24 @@ const App = () => {
 	const [columns, setColumns] = useState(initialData);
 	const onDragEnd = result => {
 		console.log(result);
+		const { source, destination, draggableId } = result;
+		if (!destination) return;
+		// If source and destination same
+		if (
+			destination.droppableId === source.droppableId &&
+			destination.index === source.index
+		)
+			return;
+
+		setColumns(prev => {
+			return prev.map(column => {
+				if (column.id === source.droppableId)
+					column.taskIds.splice(source.index, 1);
+				else if (column.id === destination.droppableId)
+					column.taskIds.splice(destination.index, 0, draggableId);
+				return column;
+			});
+		});
 	};
 	return (
 		<Flex
@@ -30,7 +48,7 @@ const App = () => {
 			</Flex>
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Flex justify="space-between" columnGap="1rem" px="4rem">
-					{columns.map(column => {
+					{columns?.map(column => {
 						const tasks = column.taskIds.map(taskId =>
 							tasksMap.get(taskId)
 						);

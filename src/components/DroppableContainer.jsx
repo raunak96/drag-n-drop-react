@@ -8,7 +8,8 @@ const DroppableContainer = ({ column, tasks }) => {
 			rounded="3px"
 			bg="column-bg"
 			w="400px"
-			maxH="500px"
+			minH="500px"
+			maxH="600px"
 			flexDir="column">
 			<Flex
 				align="center"
