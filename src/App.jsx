@@ -19,12 +19,11 @@ const App = () => {
 			destination.index === source.index
 		)
 			return;
-
 		setColumns(prev => {
 			return prev.map(column => {
 				if (column.id === source.droppableId)
 					column.taskIds.splice(source.index, 1);
-				else if (column.id === destination.droppableId)
+				if (column.id === destination.droppableId)
 					column.taskIds.splice(destination.index, 0, draggableId);
 				return column;
 			});
